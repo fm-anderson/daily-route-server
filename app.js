@@ -1,8 +1,16 @@
 require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
+const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3000;
+
+const corsOptions = {
+  origin: process.env.ALLOWED_ORIGIN,
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 async function fetchSpreadsheetData(dataUrl) {
   try {
