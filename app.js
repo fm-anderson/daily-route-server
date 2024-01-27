@@ -4,10 +4,6 @@ const axios = require("axios");
 const app = express();
 const port = process.env.PORT || 3000;
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",")
-  : [];
-
 async function fetchSpreadsheetData(dataUrl) {
   try {
     const response = await axios.get(dataUrl);
@@ -19,11 +15,6 @@ async function fetchSpreadsheetData(dataUrl) {
 }
 
 app.get("/get-neti-data", async (req, res) => {
-  const origin = req.headers.origin;
-  if (!allowedOrigins.includes(origin)) {
-    return res.status(403).send("Access denied");
-  }
-
   try {
     const data = await fetchSpreadsheetData(process.env.TECH_INSTALL_DATA);
     res.json({ data });
