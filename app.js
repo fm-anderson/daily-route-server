@@ -6,7 +6,9 @@ const port = process.env.PORT || 3000;
 
 async function fetchSpreadsheetData(dataUrl) {
   try {
-    const response = await axios.get(dataUrl);
+    const apiKey = process.env.API_KEY;
+    const urlWithKey = `${dataUrl}?apiKey=${apiKey}`;
+    const response = await axios.get(urlWithKey);
     return response.data;
   } catch (error) {
     console.error("Error making request: " + error);
